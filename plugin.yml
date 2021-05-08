@@ -1,0 +1,13 @@
+name: ScratchMC
+version: 1.0
+main: io.github.acesjus.scratchmc.Main
+description: ScratchMC
+api-version: 1.16
+
+commands:
+
+    rank:
+        usage: /rank
+        
+    w:
+        usage: /w
