@@ -1,14 +1,22 @@
-package io.github.acesjus.scratchmc;
+package io.github.acesjus.scratchmc.project;
 
 import java.io.IOException;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
+import io.github.acesjus.scratchmc.ConfigStats;
+import io.github.acesjus.scratchmc.Files;
+import io.github.acesjus.scratchmc.ItemStackClass;
+import io.github.acesjus.scratchmc.Main;
+import io.github.acesjus.scratchmc.Servers;
 
 public class Project {
 	private static OfflinePlayer owner;
@@ -40,12 +48,18 @@ public class Project {
 	}
 	
 	public void joinProject(Player p) {
-		p.sendMessage(ChatColor.GREEN + "Sending you to " + this.getOwner().getName() + "-" + slot + "...");
+		String serverId = this.getOwner().getName() + "-" + slot;
+		p.sendMessage(ChatColor.GREEN + "Sending you to " + serverId + "...");
+		Servers.getServer.put(p, serverId);
+		Servers.getCurrentProject.put(p, this);
 		p.teleport(spawn);
+		p.setGameMode(GameMode.CREATIVE);
+		p.getInventory().addItem(ItemStackClass.ItemStack(Material.BLAZE_ROD, 1, ChatColor.GOLD + "Block Editor"));
 	}
 
 	public int generateId() {
-		return ConfigStats.getValue("worldCount") + 1;
+		ConfigStats.increment("worldCount");
+		return ConfigStats.getValue("worldCount");
 	}
 	
 	public int generateSlot() throws IOException {
@@ -53,7 +67,7 @@ public class Project {
 	}
 	
 	public Location generateSpawn() {
-		return new Location(Bukkit.getWorld("Lobby"), id * 1000, 56, id * 1000);
+		return new Location(Bukkit.getWorld("Lobby"), id * 1000, 55, id * 1000);
 	}
 
 	public OfflinePlayer getOwner() {

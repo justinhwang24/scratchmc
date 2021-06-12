@@ -3,7 +3,7 @@ package io.github.acesjus.scratchmc.anvilgui.version;
 import org.bukkit.Bukkit;
 
 import io.github.acesjus.scratchmc.anvilgui.abstractions.VersionWrapper;
-import io.github.acesjus.scratchmc.anvilgui.wrapper.Wrapper1_16_R3;
+import io.github.acesjus.scratchmc.anvilgui.wrapper.Wrapper1_17_R1;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +24,7 @@ public class VersionMatcher {
      * All available {@link VersionWrapper}s
      */
     private final List<Class<? extends VersionWrapper>> versions = Arrays.asList(
-            Wrapper1_16_R3.class
+            Wrapper1_17_R1.class
     );
 
     /**

@@ -1,12 +1,9 @@
 package io.github.acesjus.scratchmc;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -67,5 +64,12 @@ public class ConfigStats implements Listener {
 		}
 		
 		return 0;
+	}
+	
+	public static void increment (String s) {
+		if (s.equalsIgnoreCase("worldCount")) {
+			plugin.getConfig().set("Server.WorldCount", getValue(s) + 1);
+			plugin.saveConfig();
+		}
 	}
 }

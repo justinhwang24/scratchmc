@@ -1,4 +1,4 @@
-package io.github.acesjus.scratchmc;
+package io.github.acesjus.scratchmc.project;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,8 +22,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 
+import io.github.acesjus.scratchmc.CustomScoreboard;
+import io.github.acesjus.scratchmc.Files;
+import io.github.acesjus.scratchmc.Main;
 import io.github.acesjus.scratchmc.anvilgui.AnvilGUI;
-import net.minecraft.server.v1_16_R3.SoundEffectType;
 
 public class ProjectMenu implements Listener {
 	static Plugin plugin = Main.getPlugin(Main.class);
@@ -80,6 +82,7 @@ public class ProjectMenu implements Listener {
 	public static void createProject2(Player p) throws IOException {
 		Project pr = new Project(p.getUniqueId(), s[0]);
 		p.sendMessage(ChatColor.AQUA + s[0] + ChatColor.GREEN + " successfully created.");
+		ProjectSetUp.setUp(pr);
 		pr.joinProject(p);
 		CustomScoreboard.updateScoreboard(p);
 	}

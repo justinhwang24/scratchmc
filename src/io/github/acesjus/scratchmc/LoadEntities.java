@@ -17,7 +17,7 @@ public class LoadEntities {
 	public static void loadEntities() {
 	World world = Bukkit.getWorld("Lobby");
 		
-    Entity en = world.spawnEntity(new Location(world, 0.5, 55, -18.5, 0, 0), EntityType.VILLAGER);
+    Entity en = world.spawnEntity(new Location(world, 63.5, 66, 33.5, 0, 0), EntityType.VILLAGER);
     Villager v = (Villager) en;
     v.setSilent(true);
     v.setAI(false);

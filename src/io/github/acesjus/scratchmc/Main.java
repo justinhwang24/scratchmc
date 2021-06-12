@@ -1,14 +1,12 @@
 package io.github.acesjus.scratchmc;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,24 +20,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.comphenix.protocol.ProtocolManager;
-
 import io.github.acesjus.scratchmc.commands.CommandMessage;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.User;
-import net.iso2013.mlapi.api.MultiLineAPI;
-import net.iso2013.mlapi.api.tag.TagController;
+import io.github.acesjus.scratchmc.project.ProjectMenu;
 
 public class Main extends JavaPlugin implements Listener, CommandExecutor {
 public static Plugin instance;
-public static MultiLineAPI mlapi;
-public static TagController tc;
-public final String TOKEN = "NzkyMTQxNjc1MjI0MTA0OTgx.X-ZZbA.nKVdsZ-m3t1xksUa9_jRzQGmW8I";
-public final String PREFIX = "!";
-public ConsoleCommandSender console;
-public ProtocolManager protocolManager;
 
 @Override
 	public void onEnable() {
@@ -51,13 +36,12 @@ public ProtocolManager protocolManager;
 		pm.registerEvents(new Chat(), this);
 		pm.registerEvents(new ConfigStats(), this);
 		pm.registerEvents(new ProjectMenu(), this);
-		pm.registerEvents(new Servers(), this);
 		getCommand("rank").setExecutor(new Ranks());
 		getCommand("w").setExecutor(new CommandMessage());
 		
 		loadConfig();
+
 		LoadEntities.loadEntities();
-		new Discord(this);
 	}
 
 	@Override
@@ -85,7 +69,7 @@ public ProtocolManager protocolManager;
 		}
 
 		Servers.getServer.put(p, "Lobby-1");
-		p.teleport(new Location(Bukkit.getWorld("Lobby"), 0.5, 56, 0.5, 180, 0));
+		p.teleport(new Location(Bukkit.getWorld("Lobby"), 63.5, 69, 64.5, 180, 0));
 		p.sendTitle(ChatColor.translateAlternateColorCodes('&', ChatColor.AQUA + "&LScratchMC"), ChatColor.YELLOW + "Welcome!", 20, 50, 20);
 		p.setHealth(20);
 		p.setFoodLevel(20);
