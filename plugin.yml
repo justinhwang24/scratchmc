@@ -11,3 +11,6 @@ commands:
         
     w:
         usage: /w
+        
+    hub:
+        usage: /hub

@@ -9,14 +9,15 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import io.github.acesjus.scratchmc.ConfigStats;
 import io.github.acesjus.scratchmc.Files;
 import io.github.acesjus.scratchmc.ItemStackClass;
 import io.github.acesjus.scratchmc.Main;
 import io.github.acesjus.scratchmc.Servers;
+import io.github.acesjus.scratchmc.Tablist;
 
 public class Project {
 	private static OfflinePlayer owner;
@@ -53,21 +54,29 @@ public class Project {
 		Servers.getServer.put(p, serverId);
 		Servers.getCurrentProject.put(p, this);
 		p.teleport(spawn);
-		p.setGameMode(GameMode.CREATIVE);
-		p.getInventory().addItem(ItemStackClass.ItemStack(Material.BLAZE_ROD, 1, ChatColor.GOLD + "Block Editor"));
+		p.getInventory().clear();
+		ProjectEvents.joinMessage(p);
+		Tablist.tabListUpdate(p);
+		p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 10);
+		if (owner.equals(p)) {
+			p.setGameMode(GameMode.CREATIVE);
+			p.getInventory().setItem(8, ItemStackClass.ItemStack(Material.NETHER_STAR, 1, ChatColor.GOLD + "Customize Project"));
+		}
 	}
 
 	public int generateId() {
-		ConfigStats.increment("worldCount");
-		return ConfigStats.getValue("worldCount");
+		int i = plugin.getConfig().getInt("Server.WorldCount");
+		plugin.getConfig().set("Server.WorldCount", i + 1);
+		plugin.saveConfig();
+		return i + 1;
 	}
 	
-	public int generateSlot() throws IOException {
+	private int generateSlot() throws IOException {
 		return Files.getHouses(this.getOwner()).size() + 1;
 	}
 	
-	public Location generateSpawn() {
-		return new Location(Bukkit.getWorld("Lobby"), id * 1000, 55, id * 1000);
+	private Location generateSpawn() {
+		return new Location(Bukkit.getWorld("Lobby"), id * 1000 + 0.5, 55, id * 1000 + 0.5);
 	}
 
 	public OfflinePlayer getOwner() {

@@ -8,7 +8,7 @@ public class Tablist implements Listener {
 
 	public static void tabListUpdate (Player p) {
 //		String server = (CommandServer.getServer(p).getName());
-		String server = "Lobby";
+		String server = Servers.getServer.get(p);
 		String header = (ChatColor.translateAlternateColorCodes('&', ChatColor.LIGHT_PURPLE + "&LMINETEST"
 				+ ChatColor.WHITE + " - " + ChatColor.GREEN + server));
 		p.setPlayerListHeader(header);

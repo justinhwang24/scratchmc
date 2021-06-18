@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 
+import io.github.acesjus.scratchmc.Chat;
 import io.github.acesjus.scratchmc.CustomScoreboard;
 import io.github.acesjus.scratchmc.Files;
 import io.github.acesjus.scratchmc.Main;
@@ -73,6 +74,7 @@ public class ProjectMenu implements Listener {
 	public static void createProject(Player p) throws IOException {
 		if (Files.getHouses(p).size() == 3) {
 			p.sendMessage(ChatColor.RED + "Error: You already have 3 existing projects!");
+			p.closeInventory();
 		}
 		else {
 			nameWorld(p);
@@ -81,8 +83,9 @@ public class ProjectMenu implements Listener {
 	
 	public static void createProject2(Player p) throws IOException {
 		Project pr = new Project(p.getUniqueId(), s[0]);
-		p.sendMessage(ChatColor.AQUA + s[0] + ChatColor.GREEN + " successfully created.");
+		p.sendMessage(ChatColor.GRAY + "Creating Project...");
 		ProjectSetUp.setUp(pr);
+		p.sendMessage(ChatColor.AQUA + s[0] + ChatColor.GREEN + " successfully created.");
 		pr.joinProject(p);
 		CustomScoreboard.updateScoreboard(p);
 	}
@@ -105,7 +108,11 @@ public class ProjectMenu implements Listener {
 	    	}
 	    })
 	    .onComplete((player, text) -> {
-	    	s[0] = text;
+	    	try {
+				s[0] = Chat.filter(text).strip();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	    	b[0] = true;
 	    	p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 1000000000, 1);
 	    	return AnvilGUI.Response.close();
@@ -145,7 +152,7 @@ public class ProjectMenu implements Listener {
 			List<String> lore1 = new ArrayList<>();
 			lore1.add(ChatColor.GRAY + "");
 			lore1.add(ChatColor.GRAY + "Browse your current projects.");
-			meta1.setLore(lore);
+			meta1.setLore(lore1);
 			bed.setItemMeta(meta1);
 			gameMenu.setItem(13, bed);
 			

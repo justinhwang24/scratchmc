@@ -6,38 +6,32 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.plugin.Plugin;
 
 public class ConfigStats implements Listener {
 	static Plugin plugin = Main.getPlugin(Main.class);
 	
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerJoin (PlayerJoinEvent e) {
-			Player p = e.getPlayer();
-		    UUID u = p.getUniqueId();
-		    
-		    if (plugin.getConfig().getString("Users." + u) == null) {
-		    	plugin.getConfig().set("Users." + u + ".Rank", "norank");
-		    	plugin.getConfig().set("Users." + u + ".Worlds", "");
-				plugin.saveConfig();
-		    }
-		    if ((plugin.getConfig().getString("Users." + u + ".Rank")) == null) {
-		    	plugin.getConfig().set("Users." + u + ".Rank", "norank");
-		    }
-		    if ((plugin.getConfig().getString("Users." + u + ".Worlds")) == null) {
-		    	plugin.getConfig().set("Users." + u + ".Worlds", "");
-		    }
-		    if ((plugin.getConfig().getString("Server.WorldCount")) == null) {
-		    	plugin.getConfig().set("Server.WorldCount", 0);
-				plugin.saveConfig();
-		    }
-		    for (Player s : Bukkit.getOnlinePlayers()) {
-				Tablist.tabListUpdate(s);
-			}
-		    CustomScoreboard.updateScoreboard(p);
+	@EventHandler
+	public void beforePlayerJoin (AsyncPlayerPreLoginEvent e) {
+	    UUID u = e.getUniqueId();
+	    
+	    if (plugin.getConfig().getString("Users." + u) == null) {
+	    	plugin.getConfig().set("Users." + u + ".Rank", "norank");
+	    	plugin.getConfig().set("Users." + u + ".Worlds", "");
+			plugin.saveConfig();
+	    }
+	    if ((plugin.getConfig().getString("Users." + u + ".Rank")) == null) {
+	    	plugin.getConfig().set("Users." + u + ".Rank", "norank");
+	    }
+	    if ((plugin.getConfig().getString("Users." + u + ".Worlds")) == null) {
+	    	plugin.getConfig().set("Users." + u + ".Worlds", "");
+	    }
+	    if ((plugin.getConfig().getString("Server.WorldCount")) == null) {
+	    	plugin.getConfig().set("Server.WorldCount", 0);
+			plugin.saveConfig();
+	    }
 	}
 	
 	public static String getValue (OfflinePlayer p, String s) {
