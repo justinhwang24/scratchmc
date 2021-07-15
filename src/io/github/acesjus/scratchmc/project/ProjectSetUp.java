@@ -37,7 +37,7 @@ public class ProjectSetUp {
 	    
 	    for (int x = loc.getBlockX() - 1; x <= loc.getBlockX() + 1; x++) {
 	    	for (int z = loc.getBlockZ() - 1; z <= loc.getBlockZ() + 1; z++) {
-		    	loc.getWorld().getBlockAt(x, 54, z).setType(Material.SMOOTH_STONE_SLAB);
+		    	loc.getWorld().getBlockAt(x, 154, z).setType(Material.SMOOTH_STONE_SLAB);
 		    }
 	    }
 	    loc.getWorld().getBlockAt(loc.add(0, -1, 0)).setType(Material.GOLD_BLOCK);

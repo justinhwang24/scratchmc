@@ -13,6 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/acesjus/Downloads/ProtocolLib (1).jar"/>
-	<classpathentry kind="lib" path="/Users/acesjus/spigot-1.17.jar"/>
+	<classpathentry kind="lib" path="/Users/acesjus/Downloads/spigot-1.17.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -162,6 +162,8 @@ public class ProjectMenu implements Listener {
 			List<String> lore2 = new ArrayList<>();
 			lore2.add(ChatColor.GRAY + "");
 			lore2.add(ChatColor.GRAY + "Visit someone else's project.");
+			lore2.add(" ");
+			lore2.add(ChatColor.RED + "Coming soon!");
 			meta2.setLore(lore2);
 			door.setItemMeta(meta2);
 			gameMenu.setItem(15, door);

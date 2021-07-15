@@ -30,11 +30,23 @@ public class ProjectEvents implements Listener {
 			}
 		}
 	}
+
+	public static void announceMessage(Project pr, String s) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (Servers.getServer.containsKey(p) && !Servers.getServer.get(p).equals("Lobby-1")) {
+				if (Servers.getCurrentProject.containsKey(p)) {
+					if (Servers.getCurrentProject.get(p).getId() == pr.getId()) {
+						p.sendMessage(s);
+					}
+				}
+			}
+		}
+	}
 	
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
-		quitMessage(p);
 		Servers.getServer.remove(p);
+		quitMessage(p);
 	}
 }

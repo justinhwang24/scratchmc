@@ -13,7 +13,7 @@ public class Tablist implements Listener {
 				+ ChatColor.WHITE + " - " + ChatColor.GREEN + server));
 		p.setPlayerListHeader(header);
 		String footer = (ChatColor.GRAY + "Server address: " + ChatColor.GREEN
-				+ "ace.minetest.land");
+				+ "closter.minetest.land:25569");
 		p.setPlayerListFooter(footer);
 		p.setPlayerListName(Ranks.getRank(p, true) + ChatColor.RESET + p.getName());
 	}

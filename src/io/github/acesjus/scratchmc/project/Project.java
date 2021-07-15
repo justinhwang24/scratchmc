@@ -62,6 +62,9 @@ public class Project {
 			p.setGameMode(GameMode.CREATIVE);
 			p.getInventory().setItem(8, ItemStackClass.ItemStack(Material.NETHER_STAR, 1, ChatColor.GOLD + "Customize Project"));
 		}
+		else {
+			p.setGameMode(GameMode.ADVENTURE);
+		}
 	}
 
 	public int generateId() {
@@ -76,7 +79,7 @@ public class Project {
 	}
 	
 	private Location generateSpawn() {
-		return new Location(Bukkit.getWorld("Lobby"), id * 1000 + 0.5, 55, id * 1000 + 0.5);
+		return new Location(Bukkit.getWorld("Lobby"), id * 1000 + 0.5, 155, id * 1000 + 0.5);
 	}
 
 	public OfflinePlayer getOwner() {

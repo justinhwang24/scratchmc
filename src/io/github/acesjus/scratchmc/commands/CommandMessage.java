@@ -14,7 +14,6 @@ import io.github.acesjus.scratchmc.Chat;
 import io.github.acesjus.scratchmc.Files;
 import io.github.acesjus.scratchmc.Ranks;
 
-
 public class CommandMessage implements CommandExecutor {
 
 	@SuppressWarnings("deprecation")
@@ -23,7 +22,7 @@ public class CommandMessage implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("w")) {
 			if (args.length == 0) {
 				sender.sendMessage(ChatColor.RED + "Usage> " + ChatColor.YELLOW + "/" + cmd.getName().toLowerCase()
-						+ " <message>");
+						+ " <player> <message>");
 				return true;
 			}
 			if (Bukkit.getOfflinePlayer(args[0]).isOnline()) {

@@ -14,6 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
 
+import io.github.acesjus.scratchmc.project.gametools.AnnouncementPlate;
+import io.github.acesjus.scratchmc.project.gametools.MessagePlate;
+
 public class Chat implements Listener {
 	static Plugin plugin = Main.getPlugin(Main.class);
 	
@@ -21,6 +24,23 @@ public class Chat implements Listener {
 	public void onPlayerChatEvent (AsyncPlayerChatEvent e) throws IOException {
 		Player p = e.getPlayer();
 		String message = e.getMessage();
+		
+		if (MessagePlate.placedPlatesPlayer.contains(p)) {
+			int i = MessagePlate.placedPlatesPlayer.lastIndexOf(p);
+				if (!MessagePlate.placedPlatesYet.get(i)) {
+					e.setCancelled(true);
+					return;
+			}
+		}
+
+		if (AnnouncementPlate.placedPlatesPlayer.contains(p)) {
+			int i = AnnouncementPlate.placedPlatesPlayer.lastIndexOf(p);
+				if (!AnnouncementPlate.placedPlatesYet.get(i)) {
+					e.setCancelled(true);
+					return;
+			}
+		}
+		
 		e.setCancelled(true);
 		for (Player s : Bukkit.getOnlinePlayers()) {
 			

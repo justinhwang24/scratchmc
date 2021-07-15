@@ -2,7 +2,7 @@ name: ScratchMC
 version: 1.0
 main: io.github.acesjus.scratchmc.Main
 description: ScratchMC
-api-version: 1.16
+api-version: 1.17
 
 commands:
 
@@ -11,6 +11,26 @@ commands:
         
     w:
         usage: /w
+        aliases: [whisper, msg, tell]
         
     hub:
         usage: /hub
+        aliases: [lobby, l]
+        
+    staff:
+        usage: /staff
+        aliases: [s]
+        
+    sa:
+        usage: /sa
+        aliases: [sa]
+        
+    villager:
+        usage: /villager
+        
+    visit:
+        usage: /visit
+        aliases: [v]
+        
+    gm:
+        usage: /gm

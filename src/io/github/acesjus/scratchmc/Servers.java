@@ -28,8 +28,9 @@ public class Servers implements Listener, CommandExecutor {
 				Player p = (Player) sender;
 				ProjectEvents.quitMessage(p);
 				Servers.getServer.put(p, "Lobby-1");
+				Servers.getCurrentProject.remove(p);
 				p.setGameMode(GameMode.ADVENTURE);
-				p.teleport(new Location(Bukkit.getWorld("Lobby"), 63.5, 69, 64.5, 180, 0));
+				p.teleport(new Location(Bukkit.getWorld("Lobby"), 63.5, 171, 64.5, 180, 0));
 				p.getInventory().clear();
 				p.setHealth(20);
 				p.setFoodLevel(20);

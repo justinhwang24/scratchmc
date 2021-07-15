@@ -52,8 +52,8 @@ public class Files {
 		}
         FileWriter fw = new FileWriter(saveTo, true);
         PrintWriter pw = new PrintWriter(fw);
-        replaceLine(p, 0, p.getName());
-        replaceLine(p, pr.getSlot(), pr.getName());
+        replaceLine(p, 1, p.getName());
+        replaceLine(p, pr.getSlot() + 1, pr.getName());
         int n = getLine(p, "-------", pr.getSlot());
         insertLine(p, n++, "Name: " + pr.getName());
         insertLine(p, n++, "Id: " + pr.getId());
@@ -123,7 +123,7 @@ public class Files {
         }
 		java.nio.file.Files.write(path, newLines, StandardCharsets.UTF_8);
 	}
-	
+
 	public static void replaceLine (OfflinePlayer p, int n, String s) throws IOException {
 		String fileName = p.getUniqueId().toString().concat(".txt");
 		File saveTo = new File(plugin.getDataFolder(), fileName);
@@ -132,7 +132,15 @@ public class Files {
         }
         Path path = saveTo.toPath();
         List<String> lines = java.nio.file.Files.readAllLines(path, StandardCharsets.UTF_8);
-		lines.set(n, s);
+		lines.set(n - 1, s);
+		java.nio.file.Files.write(path, lines, StandardCharsets.UTF_8);
+	}
+	
+	public static void replaceLineInFile (String fileName, int n, String s) throws IOException {
+		File saveTo = new File(plugin.getDataFolder(), fileName);
+		Path path = saveTo.toPath();
+        List<String> lines = java.nio.file.Files.readAllLines(path, StandardCharsets.UTF_8);
+		lines.set(n - 1, s);
 		java.nio.file.Files.write(path, lines, StandardCharsets.UTF_8);
 	}
 	
@@ -144,6 +152,15 @@ public class Files {
             return null;
         }
 		BufferedReader br = new BufferedReader(new FileReader(saveTo));
+		for (int i = 1; i < n; i++) {
+        	br.readLine();
+        }
+		return br.readLine();
+	}
+
+	public static String getNthLineInFile (String fileName, int n) throws IOException {
+		File saveTo = new File(plugin.getDataFolder(), fileName);
+        BufferedReader br = new BufferedReader(new FileReader(saveTo));
 		for (int i = 1; i < n; i++) {
         	br.readLine();
         }
@@ -195,6 +212,29 @@ public class Files {
         if (!saveTo.exists()) {
            newFile(p);
         }
+        try {
+        	int i = 1;
+        	int times = 0;
+            BufferedReader br = new BufferedReader(new FileReader(saveTo));
+            for (String line = br.readLine(); line != null; line = br.readLine()) {
+                if (line.equals(s)) {
+                	times++;
+                	if (times == instance) {
+	                    br.close();
+	                	return i;
+                	}
+                }
+                i++;
+             }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return -1;
+    }
+	
+	public static int getLineInFile (String fileName, String s, int instance) throws IOException {
+		File saveTo = new File(plugin.getDataFolder(), fileName);
         try {
         	int i = 1;
         	int times = 0;
